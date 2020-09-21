@@ -155,16 +155,23 @@ export default class Game extends Phaser.Scene {
     // Test for TouchScreen ========== WORKING!!!!! ==========
     this.touchText = this.add.text(10, 180, 'touch-Xpos:', style)
   .setScrollFactor(0)
-    this.input.on('pointerdown', (ev) => {
-      this.touchText.text = `touch-Xpos: ${ev.x}`
+    this.input
+      .on('pointerdown', (ev) => {
+        this.touchText.text = `
+touch-Xpos: ${ev.x}
+duration: ${ev.getDuration()}
+`
 
-      if (ev.x > this.scale.width/2) {
-        this.player.setVelocityX(200)
-      } else {
-        this.player.setVelocityX(-200)
-      }
-    })
+        if (ev.x > this.scale.width/2) {
+          this.player.setVelocityX(200)
+          this.player.vel
+        } else if (ev.x < this.scale.width/2) {
+          this.player.setVelocityX(-200)
+        }
+      })
+      .on('pointerup', (ev) => this.player.setVelocityX(0))
     
+
     // add screen information
     this.add.text(10, 490, `
 Screen Info
@@ -220,7 +227,7 @@ PixelDepth: ${screen.pixelDepth}
     else if (this.cursors.right.isDown && !touchingDown) {
       this.player.setVelocityX(200)
     }
-    else {
+    else if (!this.input.activePointer.isDown){
       this.player.setVelocityX(0) // stop X movement
     }
 
