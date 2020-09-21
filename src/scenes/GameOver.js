@@ -19,5 +19,10 @@ export default class GameOver extends Phaser.Scene {
     // we use .onceinstead.on. This saves us from having to clean up
     // the event since it will beautomatically cleaned up after the
     // event is fired once
+
+    // to also enable restarting with a click/touch
+    this.input.on('pointerdown', () => {
+      this.scene.start('game')
+    })
   }
 }
