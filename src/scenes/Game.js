@@ -158,8 +158,8 @@ export default class Game extends Phaser.Scene {
     this.input
       .on('pointerdown', (ev) => {
         this.touchText.text = `
-touch-Xpos: ${ev.x}
-duration: ${ev.getDuration()}
+touch-Xpos: ${Math.round(ev.x)}
+duration: ${Math.round(ev.getDuration())}
 `
 
         if (ev.x > this.scale.width/2) {
@@ -173,12 +173,14 @@ duration: ${ev.getDuration()}
     
 
     // add screen information
-    this.add.text(10, 490, `
+    const canvas = document.querySelector('canvas')
+    this.add.text(10, 470, `
 Screen Info
 -----------
 Width: ${screen.width}
 Height: ${screen.height}
 PixelDepth: ${screen.pixelDepth}
+CanvasWxH: ${canvas.width}x${canvas.height}
     `, style).setScrollFactor(0)
   }
 
