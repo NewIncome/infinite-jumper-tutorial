@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+  "module": "es6",
+  "target": "es6"
+  }
+}
+// this file is to configure JavaScript handling for VS Code.
