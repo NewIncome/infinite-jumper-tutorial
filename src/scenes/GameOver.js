@@ -9,9 +9,14 @@ export default class GameOver extends Phaser.Scene {
     const width = this.scale.width
     const height = this.scale.height
 
-    this.add.text(width * 0.5, height * 0.5, 'Game Over', {
+    this.add.text(width * 0.5, height * 0.4, 'Game Over', {
       fontSize: 48
     }).setOrigin(0.5) // so it is centered vertically and horizontally
+
+    // instructions to restart the game
+    this.add.text(width * 0.5, height * 0.7, '  to restart game\n[spaceBar] or click', {
+      fontSize: 22
+    }).setOrigin(0.5)
 
     this.input.keyboard.once('keydown_SPACE', () => {
       this.scene.start('game')
