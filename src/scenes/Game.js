@@ -147,9 +147,32 @@ export default class Game extends Phaser.Scene {
       .setScrollFactor(0)
 
     // ================ TEST, See Pointer Position ================
+    // Works only for mouse touch/click
     this.pointer = this.input.activePointer
-    this.pointerText = this.add.text(10, 120, `pointer-Xpos: ${this.pointer.x}`, style)
+    this.pointerText = this.add.text(10, 120, 'pointer-Xpos:', style)
     .setScrollFactor(0)
+
+    // Test for TouchScreen ========== WORKING!!!!! ==========
+    this.touchText = this.add.text(10, 180, 'touch-Xpos:', style)
+  .setScrollFactor(0)
+    this.input.on('pointerdown', (ev) => {
+      this.touchText.text = `touch-Xpos: ${ev.x}`
+
+      if (ev.x > this.scale.width/2) {
+        this.player.setVelocityX(200)
+      } else {
+        this.player.setVelocityX(-200)
+      }
+    })
+    
+    // add screen information
+    this.add.text(10, 490, `
+Screen Info
+-----------
+Width: ${screen.width}
+Height: ${screen.height}
+PixelDepth: ${screen.pixelDepth}
+    `, style).setScrollFactor(0)
   }
 
 
@@ -218,15 +241,16 @@ VelocityY: ${Math.round(this.player.body.velocity.y)}
 
     // ================ TEST, TouchScreen feature use ================
     //just to view the position in X
-    if (this.pointer.isDown) {
-      this.pointerText.text = `pointer-Xpos: ${this.pointer.x}`
+    // ONLY WORKS FOR MOUSE!!
+    // if (this.pointer.isDown) {
+    //   this.pointerText.text = `pointer-Xpos: ${this.pointer.x}`
 
-      if (this.pointer.x > this.scale.width/2) {
-        this.player.setVelocityX(200)
-      } else {
-        this.player.setVelocityX(-200)
-      }
-    }
+    //   if (this.pointer.x > this.scale.width/2) {
+    //     this.player.setVelocityX(200)
+    //   } else {
+    //     this.player.setVelocityX(-200)
+    //   }
+    // }
   }
 
   // ======================= player screen wrap =======================
