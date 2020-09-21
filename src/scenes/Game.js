@@ -145,6 +145,11 @@ export default class Game extends Phaser.Scene {
     // ================ TEST, See present Velocity ================
     this.velText = this.add.text(10, 40, 'Velocity X: , Velocity Y:', style)
       .setScrollFactor(0)
+
+    // ================ TEST, See Pointer Position ================
+    this.pointer = this.input.activePointer
+    this.pointerText = this.add.text(10, 120, `pointer-Xpos: ${this.pointer.x}`, style)
+    .setScrollFactor(0)
   }
 
 
@@ -207,9 +212,21 @@ export default class Game extends Phaser.Scene {
 
     // ================ TEST, See present Velocity ================
     this.velText.text = `
-      VelocityX: ${Math.round(this.player.body.velocity.x)}
-      VelocityY: ${Math.round(this.player.body.velocity.y)}
+VelocityX: ${Math.round(this.player.body.velocity.x)}
+VelocityY: ${Math.round(this.player.body.velocity.y)}
     `
+
+    // ================ TEST, TouchScreen feature use ================
+    //just to view the position in X
+    if (this.pointer.isDown) {
+      this.pointerText.text = `pointer-Xpos: ${this.pointer.x}`
+
+      if (this.pointer.x > this.scale.width/2) {
+        this.player.setVelocityX(200)
+      } else {
+        this.player.setVelocityX(-200)
+      }
+    }
   }
 
   // ======================= player screen wrap =======================
